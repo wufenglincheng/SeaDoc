@@ -1,0 +1,73 @@
+apply plugin: 'com.android.application'
+apply plugin: 'org.greenrobot.greendao'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion _compileSdkVersion
+    buildToolsVersion _buildToolsVersion
+
+    defaultConfig {
+        applicationId "com.coder.seadoc"
+        minSdkVersion _minSdkVersion
+        targetSdkVersion _targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFile 'proguard-android.txt'
+
+            buildConfigField "int", "networkDebug", _networkDebug ? "1" : "0"
+        }
+
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFile 'proguard-android.txt'
+
+            buildConfigField "int", "networkDebug", _networkDebug ? "1" : "0"
+        }
+    }
+    greendao {
+        schemaVersion 1
+        daoPackage 'com.coder.seadoc'
+        targetGenDir 'src/main/java'
+    }
+}
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+
+    def dependencies = rootProject.ext.dependencies
+
+    compile dependencies.supportV4
+    compile dependencies.supportAppcompatV7
+    compile dependencies.supportRecyclerViewV7
+    compile dependencies.supportDesign
+    //网络请求框架相关
+    compile dependencies.retrofit2
+    compile dependencies.retrofit2_converter_gson
+    compile dependencies.retrofitRxjavaAdapter
+    compile dependencies.logging_interceptor
+    //数据库框架
+    compile dependencies.greendao
+    compile dependencies.eventbus
+    compile dependencies.dagger
+    kapt dependencies.daggerCompiler
+    //java注解
+    compile dependencies.javaxAnnotation
+
+    compile dependencies.rxJava
+    compile dependencies.rxAndroid
+
+    compile files('libs/jsoup-1.10.2.jar')
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+}
+repositories {
+    mavenCentral()
+}
+kapt {
+    generateStubs = true
+}

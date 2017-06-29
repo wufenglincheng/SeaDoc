@@ -1,0 +1,40 @@
+ext {
+    _compileSdkVersion = 25
+    _buildToolsVersion = "25.0.0"
+    _minSdkVersion = 15
+    _targetSdkVersion = 25
+    _supportVersion = "23.3.0"
+    _networkDebug = true
+
+    //dependencies
+    _daggerLibVersion = '2.7'
+    _butterknifeVersion = '8.4.0'
+    _retrofit2Version = '2.1.0'
+    _greendaoVersion = '3.2.0'
+    _eventbusVersion = '3.0.0'
+    _rxjavaLibVersion = '1.2.0'
+    _rxAndroidVersion = '1.2.1'
+    dependencies = [
+            // Rx
+            rxJava                  : "io.reactivex:rxjava:$_rxjavaLibVersion",
+            rxAndroid               : "io.reactivex:rxandroid:$_rxAndroidVersion",
+            // Dagger2
+            daggerCompiler          : "com.google.dagger:dagger-compiler:$_daggerLibVersion",
+            dagger                  : "com.google.dagger:dagger:$_daggerLibVersion",
+            javaxAnnotation         : 'org.glassfish:javax.annotation:10.0-b28',
+            supportV4               : "com.android.support:support-v4:$_supportVersion",
+            supportAppcompatV7      : "com.android.support:appcompat-v7:$_supportVersion",
+            supportRecyclerViewV7   : "com.android.support:recyclerview-v7:$_supportVersion",
+            supportDesign           : "com.android.support:design:$_supportVersion",
+            butterknife             : "com.jakewharton:butterknife:$_butterknifeVersion",
+            butterknife_compile     : "com.jakewharton:butterknife-compiler:$_butterknifeVersion",
+            retrofit2               : "com.squareup.retrofit2:retrofit:$_retrofit2Version",
+            retrofit2_converter_gson: "com.squareup.retrofit2:converter-gson:$_retrofit2Version",
+            retrofitRxjavaAdapter   : "com.squareup.retrofit2:adapter-rxjava:$_retrofit2Version",
+            logging_interceptor     : 'com.squareup.okhttp3:logging-interceptor:3.3.0',
+            greendao                : "org.greenrobot:greendao:$_greendaoVersion",
+            eventbus                : "org.greenrobot:eventbus:$_eventbusVersion",
+            easyRecyclerView        : 'com.jude:easyrecyclerview:4.4.0'
+
+    ]
+}

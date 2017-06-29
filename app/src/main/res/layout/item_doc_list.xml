@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/list_item_sp" />
+
+    <LinearLayout
+        android:id="@+id/item_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/item_press_selector"
+        android:clickable="true"
+        android:minHeight="40dp"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:weightSum="10">
+
+        <TextView
+            android:id="@+id/item_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="3"
+            android:paddingRight="10dp"
+            android:textColor="@color/list_title_color"
+            android:textSize="16dp"
+            tools:text="Hadoop" />
+
+        <TextView
+            android:id="@+id/item_desc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="7"
+            android:textColor="@color/list_content_color"
+            android:textSize="13sp"
+            tools:text="分布式文件系统及计算,分布式文件系统及计算,分布式文件系统及计算,分布式文件系统及计算,分布式文件系统及计算,分布式文件系统及计算,分布式文件系统及计算" />
+    </LinearLayout>
+</LinearLayout>
