@@ -1,10 +1,10 @@
 package com.coder.seadoc
 
 import android.app.Application
-import com.coder.seadoc.di.component.AppComponent
-import com.coder.seadoc.di.component.DaggerAppComponent
-import com.coder.seadoc.di.module.ApiModule
-import com.coder.seadoc.di.module.AppModule
+import com.coder.seadoc.base.di.AppComponent
+import com.coder.seadoc.base.di.ApiModule
+import com.coder.seadoc.base.di.AppModule
+import com.coder.seadoc.base.di.DaggerAppComponent
 
 /**
  * Created by liuting on 17/6/27.

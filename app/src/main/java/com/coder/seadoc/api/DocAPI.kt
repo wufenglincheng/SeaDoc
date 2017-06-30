@@ -1,8 +1,6 @@
 package com.coder.seadoc.api
 
-import com.coder.seadoc.model.GetMenuContent
-import com.coder.seadoc.model.GetPageContent
-import com.coder.seadoc.model.GetProjectGroupList
+import com.coder.seadoc.model.*
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.QueryMap
@@ -32,4 +30,10 @@ open interface DocAPI {
 
     @GET(API_GET_PAGE_CONTENT)
     fun getPageContent(@QueryMap map: Map<String, String>): Observable<GetPageContent>
+
+    @GET(API_GET_RELATIVE_BLOG_CONTENT)
+    fun getRelativeBlogContent(@QueryMap map: Map<String, String>): Observable<GetBlogPageDetail>
+
+    @GET(API_TRANSLATE_BY_LABEL_ID)
+    fun translateByLableId(@QueryMap map: Map<String, String>): Observable<BaseType>
 }

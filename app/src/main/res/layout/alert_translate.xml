@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <TextView
+        android:text="原文"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        />
+    <TextView
+        android:text="TextView"
+        android:background="@drawable/rect_gray"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_pre_translate"
+        android:layout_weight="1" />
+    <TextView
+        android:text="译文"
+
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+         />
+    <EditText
+        android:text="TextView"
+        android:background="@drawable/rect_gray"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_after_translate"
+        android:layout_weight="1" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/btn_confirm_translate"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="确定"/>
+        <Button
+            android:id="@+id/btn_cancel_translate"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="取消"/>
+    </LinearLayout>
+
+</LinearLayout>

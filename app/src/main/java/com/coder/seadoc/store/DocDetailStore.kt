@@ -1,10 +1,7 @@
 package com.coder.seadoc.store
 
 import com.coder.seadoc.api.DocAPI
-import com.coder.seadoc.model.BlogPage
-import com.coder.seadoc.model.BlogPageDetail
-import com.coder.seadoc.model.GetMenuContent
-import com.coder.seadoc.model.GetPageContent
+import com.coder.seadoc.model.*
 import rx.Observable
 
 /**
@@ -14,6 +11,7 @@ class DocDetailStore
 constructor(private val api: DocAPI) {
     var getPageContent: GetPageContent? = null
     var blogPageList: ArrayList<BlogPage>? = null
+
     fun getMenu(moduleId: String): Observable<GetMenuContent> {
         val mapContent = HashMap<String, String>()
         mapContent.put("moduleId", moduleId)
@@ -61,6 +59,30 @@ constructor(private val api: DocAPI) {
             return blogPageList!![0]?.blogPageDetail
         } else {
             return null
+        }
+    }
+
+    fun getBlogPage(positon: Int): BlogPage? {
+        return if (blogPageList != null) blogPageList!![positon] else null
+    }
+
+    fun getRelativeBlogContent(id: Int): Observable<GetBlogPageDetail> {
+        val map = java.util.HashMap<String, String>()
+        map.put("blogPageId", id.toString())
+        return api.getRelativeBlogContent(map)
+    }
+
+    fun translate(id: Int?, bid: String, content: String): Observable<BaseType> {
+        val mapContent = java.util.HashMap<String, String>()
+        mapContent.put("id", id.toString())
+        mapContent.put("bid", bid)
+        mapContent.put("result", content)
+        return api.translateByLableId(mapContent)
+    }
+
+    fun updataBlogPageContent(content: String) {
+        if (blogPageList != null && blogPageList!!.size > 0) {
+            blogPageList!![0]?.blogPageDetail?.pageContent = content
         }
     }
 }

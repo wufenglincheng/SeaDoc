@@ -22,7 +22,7 @@
                 android:layout_height="36dp"
                 android:layout_weight="1"
                 android:scaleType="centerInside"
-                android:src="@drawable/ic_new" />
+                android:src="@drawable/tab_new_selcetor" />
 
             <ImageView
                 android:id="@+id/tab_docs"
@@ -30,14 +30,14 @@
                 android:layout_height="36dp"
                 android:layout_weight="1"
                 android:scaleType="centerInside"
-                android:src="@drawable/ic_doc_selected" />
+                android:src="@drawable/tab_doc_selcetor" />
 
             <ImageView
                 android:id="@+id/tab_people"
                 android:layout_width="0dp"
                 android:layout_height="36dp"
                 android:layout_weight="1"
-                android:src="@drawable/ic_people" />
+                android:src="@drawable/tab_pepople_selcetor" />
         </LinearLayout>
     </android.support.v7.widget.Toolbar>
 

@@ -38,7 +38,7 @@ data class ParceTranslateResult(var id: Int = 0,
                                 var content: String? = null)
 
 data class BlogPage(var blogPageDetail: BlogPageDetail? = null,
-                    var id: Int? = null,
+                    var id: Int = 0,
                     var projectName: String? = null,
                     var blogPageUrl: String? = null,
                     var blogTitle: String? = null,
@@ -53,3 +53,7 @@ data class BlogPage(var blogPageDetail: BlogPageDetail? = null,
 data class BlogPageDetail(var id: Int? = null,
                           var blogPageId: Int? = null,
                           var pageContent: String? = null) : Serializable
+
+class GetBlogPageDetail(var blogPageDetail: BlogPageDetail? = null,
+                        errCode: Int?,
+                        errMsg: String?) : BaseType(errCode, errMsg)
