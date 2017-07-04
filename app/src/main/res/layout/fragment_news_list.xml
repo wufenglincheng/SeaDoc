@@ -8,4 +8,9 @@
     android:text="待实现"
     android:textSize="20sp"
     android:gravity="center"/>
+    <com.coder.seadoc.views.TabView
+        android:id="@+id/tabView"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="#4a5bbc"/>
 </FrameLayout>

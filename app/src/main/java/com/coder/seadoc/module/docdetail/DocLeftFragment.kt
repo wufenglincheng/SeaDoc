@@ -36,7 +36,7 @@ class DocLeftFragment : DocDetailContract.FragmentView, BaseFragment() {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        getApplicaton().appComponent.plus(DocDetailModule(this)).inject(this)
+        requestComponent().plus(DocDetailModule(this)).inject(this)
         webView.settings.apply {
             javaScriptEnabled = true
             cacheMode = WebSettings.LOAD_NO_CACHE
@@ -62,6 +62,7 @@ class DocLeftFragment : DocDetailContract.FragmentView, BaseFragment() {
     }
 
     override fun setPageData(data: String?) {
+        webView.stopLoading()
         webView.loadDataWithBaseURL(null, data, "text/html", "utf-8", null)
     }
 

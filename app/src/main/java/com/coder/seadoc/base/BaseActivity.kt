@@ -10,8 +10,8 @@ import android.view.View
 import android.widget.FrameLayout
 import com.coder.seadoc.MyApplication
 import com.coder.seadoc.R
+import com.coder.seadoc.base.di.AppComponent
 import com.coder.seadoc.utils.bindView
-
 /**
  * Created by liuting on 17/6/27.
  * Activity的基类
@@ -67,4 +67,6 @@ open class BaseActivity : AppCompatActivity() {
     }
 
     fun getApplicaton(): MyApplication = application as MyApplication
+
+    fun requestComponent(): AppComponent = getApplicaton().appComponent
 }

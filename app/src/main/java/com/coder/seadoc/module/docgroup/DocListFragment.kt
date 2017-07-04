@@ -52,7 +52,7 @@ class DocListFragment : DocListContract.View, BaseFragment() {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        getApplicaton().appComponent.plus(DocListModule(this)).inject(this)
+        requestComponent().plus(DocListModule(this)).inject(this)
         var list_id = arguments[DOC_LIST_ID] as Int
         initView()
         mPresenter.loadList(list_id)

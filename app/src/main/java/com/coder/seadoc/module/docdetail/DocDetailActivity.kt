@@ -45,7 +45,7 @@ class DocDetailActivity : DocDetailContract.ActivityView, BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_doc_detail)
-        getApplicaton().appComponent.plus(DocDetailModule(this)).inject(this)
+        requestComponent().plus(DocDetailModule(this)).inject(this)
         initView()
         initData()
     }

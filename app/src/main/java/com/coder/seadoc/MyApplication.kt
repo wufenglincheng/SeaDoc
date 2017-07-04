@@ -1,8 +1,8 @@
 package com.coder.seadoc
 
 import android.app.Application
-import com.coder.seadoc.base.di.AppComponent
 import com.coder.seadoc.base.di.ApiModule
+import com.coder.seadoc.base.di.AppComponent
 import com.coder.seadoc.base.di.AppModule
 import com.coder.seadoc.base.di.DaggerAppComponent
 

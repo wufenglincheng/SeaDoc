@@ -8,13 +8,12 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import com.coder.seadoc.MyApplication
 import com.coder.seadoc.R
+import com.coder.seadoc.base.di.AppComponent
 
 /**
  * Created by liuting on 17/6/27.
  */
 open abstract class BaseFragment : Fragment() {
-
-    fun getApplicaton(): MyApplication = activity.application as MyApplication
     var progressView: View? = null
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -37,4 +36,7 @@ open abstract class BaseFragment : Fragment() {
     fun hideProgress() {
         progressView?.visibility = View.GONE
     }
+
+    fun getApplicaton(): MyApplication = activity.application as MyApplication
+    fun requestComponent(): AppComponent = getApplicaton().appComponent
 }

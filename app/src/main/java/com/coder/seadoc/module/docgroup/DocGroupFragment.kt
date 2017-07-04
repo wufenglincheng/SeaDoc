@@ -37,7 +37,7 @@ class DocGroupFragment : DocGroupContract.View, BaseFragment() {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        getApplicaton().appComponent.plus(DocGroupModule(this)).inject(this)
+        requestComponent().plus(DocGroupModule(this)).inject(this)
         initView()
     }
 
