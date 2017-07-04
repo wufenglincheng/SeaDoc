@@ -1,6 +1,7 @@
 package com.coder.seadoc.module.docdetail
 
 import android.os.Bundle
+import android.os.Handler
 import android.support.v7.app.AlertDialog
 import android.text.Html
 import android.view.LayoutInflater
@@ -17,6 +18,7 @@ import com.coder.seadoc.base.BaseFragment
 import com.coder.seadoc.module.docdetail.core.DocDetailContract
 import com.coder.seadoc.module.docdetail.core.DocDetailFragmentPresenter
 import com.coder.seadoc.module.docdetail.di.DocDetailModule
+import com.coder.seadoc.utils.MyObject
 import com.coder.seadoc.utils.bindView
 import javax.inject.Inject
 
@@ -24,15 +26,18 @@ import javax.inject.Inject
  * Created by liuting on 17/6/29.
  */
 class DocLeftFragment : DocDetailContract.FragmentView, BaseFragment() {
-
+    
     val webView: WebView by bindView(R.id.webview_doc)
-
+    var handler = Handler()
     @Inject
     lateinit var mPresent: DocDetailFragmentPresenter
 
     override fun getLayoutView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater?.inflate(R.layout.fragment_doc_left, container, false)
     }
+
+
+
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -58,6 +63,7 @@ class DocLeftFragment : DocDetailContract.FragmentView, BaseFragment() {
                 }
             })
         }
+
         mPresent.loadLeft()
     }
 
