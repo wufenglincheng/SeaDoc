@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentPagerAdapter
 import android.support.v4.view.ViewPager
-import android.view.View
 import android.widget.ImageView
 import com.coder.seadoc.R
 import com.coder.seadoc.ResUtil
@@ -35,6 +34,8 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setUpToolbar("", ResUtil.instance!!.getDrawable(R.drawable.ic_menu))
+        setSupportActionBar(toolbar)
+
         initFragments()
         initView()
     }
