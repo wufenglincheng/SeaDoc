@@ -1,6 +1,7 @@
 package com.coder.seadoc.module.docdetail
 
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +14,8 @@ import com.coder.seadoc.base.BaseFragment
 import com.coder.seadoc.module.docdetail.core.DocDetailContract
 import com.coder.seadoc.module.docdetail.core.DocDetailFragmentPresenter
 import com.coder.seadoc.module.docdetail.di.DocDetailModule
-import com.coder.seadoc.utils.bindView
+import com.coder.seadoc.utils.MyObject
+import kotlinx.android.synthetic.main.fragment_doc_left.*
 import javax.inject.Inject
 
 /**
@@ -29,11 +31,9 @@ class DocRightFragment : DocDetailContract.FragmentView, BaseFragment() {
         }
     }
 
-    val webView: WebView by bindView(R.id.webview_doc)
-
     @Inject
     lateinit var mPresent: DocDetailFragmentPresenter
-
+    lateinit var languageControl: MyObject
     var position: Int = 0
 
     override fun getLayoutView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -43,12 +43,13 @@ class DocRightFragment : DocDetailContract.FragmentView, BaseFragment() {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         requestComponent().plus(DocDetailModule(this)).inject(this)
-        webView.settings.apply {
+        languageControl = MyObject(webview_doc, Handler())
+        webview_doc.settings.apply {
             javaScriptEnabled = true
             cacheMode = WebSettings.LOAD_NO_CACHE
         }
         showProgress()
-        webView.apply {
+        webview_doc.apply {
             setWebViewClient(WebViewClient())
             setWebChromeClient(object : WebChromeClient() {
                 override fun onProgressChanged(view: WebView?, newProgress: Int) {
@@ -60,11 +61,23 @@ class DocRightFragment : DocDetailContract.FragmentView, BaseFragment() {
     }
 
     override fun setPageData(data: String?) {
-        webView.stopLoading()
-        webView.loadDataWithBaseURL(null, data, "text/html", "utf-8", null)
+        webview_doc.stopLoading()
+        webview_doc.loadDataWithBaseURL(null, data, "text/html", "utf-8", null)
     }
 
-    override fun showTranlateDialog(content1: String?, content2: String?) {
+    override fun showTranlateDialog(content1: String?, content2: String?) {}
 
+    fun showLanguage(type: Int) {
+        when (type) {
+            DocDetailActivity.LANGUNE_ONLY_CN -> {
+                languageControl.chineseOnly()
+            }
+            DocDetailActivity.LANGUNE_ONLY_EN -> {
+                languageControl.englishOnly()
+            }
+            DocDetailActivity.LANGUNE_CN_EN -> {
+                languageControl.showAll()
+            }
+        }
     }
 }

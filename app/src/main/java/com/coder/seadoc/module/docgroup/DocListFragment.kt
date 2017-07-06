@@ -4,22 +4,21 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.coder.seadoc.R
-import com.coder.seadoc.module.docgroup.di.DocListModule
-import com.coder.seadoc.model.ProjectModule
-import com.coder.seadoc.module.docgroup.core.DocListPresenter
-import com.coder.seadoc.module.docgroup.core.DocListContract
 import com.coder.seadoc.base.BaseFragment
+import com.coder.seadoc.model.ProjectModule
 import com.coder.seadoc.module.docdetail.DocDetailActivity
+import com.coder.seadoc.module.docgroup.core.DocListContract
+import com.coder.seadoc.module.docgroup.core.DocListPresenter
+import com.coder.seadoc.module.docgroup.di.DocListModule
 import com.coder.seadoc.views.BaseViewHolder
 import com.coder.seadoc.views.adapter.SimpleRecyclerAdapter
-import com.coder.seadoc.utils.bindView
+import kotlinx.android.synthetic.main.fragment_doc_list.*
 import javax.inject.Inject
 
 /**
@@ -39,8 +38,6 @@ class DocListFragment : DocListContract.View, BaseFragment() {
             return fragment
         }
     }
-
-    val recyclerView: RecyclerView by bindView(R.id.recyclerView)
 
     @Inject lateinit var mPresenter: DocListPresenter
 

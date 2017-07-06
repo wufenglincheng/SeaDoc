@@ -1,11 +1,9 @@
 package com.coder.seadoc.module.docgroup
 
 import android.os.Bundle
-import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
-import android.support.v4.view.ViewPager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +13,7 @@ import com.coder.seadoc.model.Classify
 import com.coder.seadoc.module.docgroup.core.DocGroupContract
 import com.coder.seadoc.module.docgroup.core.DocGroupPresenter
 import com.coder.seadoc.module.docgroup.di.DocGroupModule
-import com.coder.seadoc.utils.bindView
+import kotlinx.android.synthetic.main.fragment_doc_group.*
 import javax.inject.Inject
 
 /**
@@ -23,9 +21,6 @@ import javax.inject.Inject
  */
 class DocGroupFragment : DocGroupContract.View, BaseFragment() {
 
-
-    val tabLayout: TabLayout by bindView(R.id.tab_layout)
-    val viewPager: ViewPager by bindView(R.id.viewpager)
 
     @Inject lateinit var mPresenter: DocGroupPresenter
 
@@ -49,11 +44,11 @@ class DocGroupFragment : DocGroupContract.View, BaseFragment() {
     override fun setGroupData(arrs: ArrayList<Classify>) {
         hideProgress()
         mAdapter = TabPageIndicatorAdapter(childFragmentManager, arrs)
-        viewPager.apply {
+        viewpager.apply {
             adapter = mAdapter
             offscreenPageLimit = arrs.size
         }
-        tabLayout.setupWithViewPager(viewPager)
+        tab_layout.setupWithViewPager(viewpager)
     }
 
     internal inner class TabPageIndicatorAdapter(fm: FragmentManager, private val list: ArrayList<Classify>) : FragmentPagerAdapter(fm) {

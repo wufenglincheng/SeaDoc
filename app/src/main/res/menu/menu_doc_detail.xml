@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_only_cn"
+        android:icon="@mipmap/ic_launcher"
+        android:title="仅显示中文"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_only_en"
+        android:icon="@mipmap/ic_launcher"
+        android:title="仅显示英文"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_cn_en"
+        android:icon="@mipmap/ic_launcher"
+        android:title="中英混排"
+        app:showAsAction="never" />
+</menu>

@@ -5,10 +5,9 @@ import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
-import android.support.v4.view.ViewPager
-import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.webkit.WebSettings
 import android.webkit.WebView
@@ -19,7 +18,7 @@ import com.coder.seadoc.model.BlogPage
 import com.coder.seadoc.module.docdetail.core.DocDetailContract
 import com.coder.seadoc.module.docdetail.core.DocDetailPresenter
 import com.coder.seadoc.module.docdetail.di.DocDetailModule
-import com.coder.seadoc.utils.bindView
+import kotlinx.android.synthetic.main.activity_doc_detail.*
 import javax.inject.Inject
 
 /**
@@ -31,12 +30,11 @@ class DocDetailActivity : DocDetailContract.ActivityView, BaseActivity() {
     companion object {
         const val MODE_ID: String = "moduleId"
         const val MODE_NAME: String = "projectModuleName"
+        const val LANGUNE_ONLY_CN = 0
+        const val LANGUNE_ONLY_EN = 1
+        const val LANGUNE_CN_EN = 2
     }
 
-    val wv_menu: WebView by bindView(R.id.wv_menu)
-    val indicator: TabLayout by bindView(R.id.indicator)
-    val viewPager: ViewPager by bindView(R.id.viewpager)
-    val drawerLayout: DrawerLayout by bindView(R.id.drawer_layout)
 
     val listFragment: ArrayList<Fragment> = ArrayList()
     lateinit var mDrawerToggle: ActionBarDrawerToggle
@@ -66,12 +64,12 @@ class DocDetailActivity : DocDetailContract.ActivityView, BaseActivity() {
         wv_menu.setWebViewClient(object : WebViewClient() {
             override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
                 mPresenter.loadPageData(url)
-                drawerLayout.closeDrawers()
+                drawer_layout.closeDrawers()
                 return true
             }
         })
         //创建返回键，并实现打开关/闭监听
-        mDrawerToggle = object : ActionBarDrawerToggle(this, drawerLayout, toolbar, 0, 0) {
+        mDrawerToggle = object : ActionBarDrawerToggle(this, drawer_layout, toolbar, 0, 0) {
             override fun onDrawerOpened(drawerView: View?) {
                 super.onDrawerOpened(drawerView)
             }
@@ -81,7 +79,7 @@ class DocDetailActivity : DocDetailContract.ActivityView, BaseActivity() {
             }
         }
         mDrawerToggle.syncState()
-        drawerLayout.setDrawerListener(mDrawerToggle)
+        drawer_layout.setDrawerListener(mDrawerToggle)
 
     }
 
@@ -91,7 +89,8 @@ class DocDetailActivity : DocDetailContract.ActivityView, BaseActivity() {
 
     override fun setPageData(arrs: ArrayList<BlogPage>) {
         hideProgress()
-        viewPager.apply {
+        listFragment.clear()
+        viewpager.apply {
             offscreenPageLimit = arrs.size
             adapter = TabPageAdapter(supportFragmentManager).apply {
                 setList(arrs)
@@ -99,7 +98,7 @@ class DocDetailActivity : DocDetailContract.ActivityView, BaseActivity() {
             adapter.notifyDataSetChanged()
         }
         indicator.apply {
-            setupWithViewPager(viewPager)
+            setupWithViewPager(viewpager)
             tabMode = TabLayout.MODE_SCROLLABLE
         }
     }
@@ -134,8 +133,35 @@ class DocDetailActivity : DocDetailContract.ActivityView, BaseActivity() {
             return list.size
         }
     }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_main, menu)
+        menuInflater.inflate(R.menu.menu_doc_detail, menu)
         return true
     }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item?.itemId) {
+            R.id.action_only_cn -> {
+                changeLanguage(LANGUNE_ONLY_CN)
+            }
+            R.id.action_only_en -> {
+                changeLanguage(LANGUNE_ONLY_EN)
+            }
+            R.id.action_cn_en -> {
+                changeLanguage(LANGUNE_CN_EN)
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun changeLanguage(type:Int) {
+        var fragment = listFragment[viewpager.currentItem]
+        if (fragment is DocLeftFragment) {
+            fragment.showLanguage(type)
+        }
+        if (fragment is DocRightFragment) {
+            fragment.showLanguage(type)
+        }
+    }
+
 }

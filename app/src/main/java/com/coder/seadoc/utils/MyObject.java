@@ -16,8 +16,9 @@ public class MyObject {
         this.webView = webView;
         this.handler = handler;
     }
+
     @JavascriptInterface
-    public void englishOnly(){
+    public void englishOnly() {
         //通过handler来确保init方法的执行在主线程中
         handler.post(new Runnable() {
 
@@ -27,8 +28,9 @@ public class MyObject {
             }
         });
     }
+
     @JavascriptInterface
-    public void chineseOnly(){
+    public void chineseOnly() {
         //通过handler来确保init方法的执行在主线程中
         handler.post(new Runnable() {
 
@@ -38,8 +40,9 @@ public class MyObject {
             }
         });
     }
+
     @JavascriptInterface
-    public void showAll(){
+    public void showAll() {
         //通过handler来确保init方法的执行在主线程中
         handler.post(new Runnable() {
 

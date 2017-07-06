@@ -19,35 +19,33 @@ import com.coder.seadoc.module.docdetail.core.DocDetailContract
 import com.coder.seadoc.module.docdetail.core.DocDetailFragmentPresenter
 import com.coder.seadoc.module.docdetail.di.DocDetailModule
 import com.coder.seadoc.utils.MyObject
-import com.coder.seadoc.utils.bindView
+import kotlinx.android.synthetic.main.fragment_doc_left.*
 import javax.inject.Inject
 
 /**
  * Created by liuting on 17/6/29.
  */
 class DocLeftFragment : DocDetailContract.FragmentView, BaseFragment() {
-    
-    val webView: WebView by bindView(R.id.webview_doc)
-    var handler = Handler()
+
     @Inject
     lateinit var mPresent: DocDetailFragmentPresenter
+    lateinit var languageControl:MyObject
 
     override fun getLayoutView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater?.inflate(R.layout.fragment_doc_left, container, false)
     }
 
 
-
-
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         requestComponent().plus(DocDetailModule(this)).inject(this)
-        webView.settings.apply {
+        languageControl = MyObject(webview_doc, Handler())
+        webview_doc.settings.apply {
             javaScriptEnabled = true
             cacheMode = WebSettings.LOAD_NO_CACHE
         }
         showProgress()
-        webView.apply {
+        webview_doc.apply {
             setWebViewClient(object : WebViewClient() {
                 override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
                     if (url.startsWith("translate://")) {
@@ -68,9 +66,10 @@ class DocLeftFragment : DocDetailContract.FragmentView, BaseFragment() {
     }
 
     override fun setPageData(data: String?) {
-        webView.stopLoading()
-        webView.loadDataWithBaseURL(null, data, "text/html", "utf-8", null)
+        webview_doc.stopLoading()
+        webview_doc.loadDataWithBaseURL(null, data, "text/html", "utf-8", null)
     }
+
 
     override fun showTranlateDialog(content1: String?, content2: String?) {
         val dialogView: View = LayoutInflater.from(activity).inflate(R.layout.alert_translate, null)
@@ -83,14 +82,26 @@ class DocLeftFragment : DocDetailContract.FragmentView, BaseFragment() {
         val dialog = AlertDialog.Builder(activity)
                 .setView(dialogView).create()
         confirm.setOnClickListener {
-            v ->
             mPresent.translate(editText.text.toString())
             dialog.dismiss()
         }
         cancel.setOnClickListener {
-            v ->
             dialog.dismiss()
         }
         dialog.show()
+    }
+
+    fun showLanguage(type: Int) {
+        when (type) {
+            DocDetailActivity.LANGUNE_ONLY_CN -> {
+                languageControl.chineseOnly()
+            }
+            DocDetailActivity.LANGUNE_ONLY_EN -> {
+                languageControl.englishOnly()
+            }
+            DocDetailActivity.LANGUNE_CN_EN -> {
+                languageControl.showAll()
+            }
+        }
     }
 }
