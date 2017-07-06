@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">SeaDoc</string>
     <string name="title_item_detail">Item Detail</string>
+    <string name="just_now">刚刚</string>
+    <string name="the_before_minute">分钟前</string>
+    <string name="today">今天</string>
+    <string name="yesterday">昨天</string>
 </resources>

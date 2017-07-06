@@ -19,7 +19,7 @@ constructor(private val api: DocAPI) {
     }
 
     fun getPageData(url: String): Observable<ArrayList<BlogPage>> {
-        val mapContent = java.util.HashMap<String, String>()
+        val mapContent = HashMap<String, String>()
         mapContent.put("pageUrl", url)
         return api.getPageContent(mapContent)
                 .doOnNext {

@@ -62,6 +62,9 @@ dependencies {
 
     compile dependencies.rxJava
     compile dependencies.rxAndroid
+    compile dependencies.easyRecyclerView
+    compile dependencies.glide
+    kapt dependencies.glideCompiler
 
     compile files('libs/jsoup-1.10.2.jar')
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"

@@ -1,7 +1,6 @@
 package com.coder.seadoc.api
 
 import com.coder.seadoc.model.*
-import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.QueryMap
 import rx.Observable
@@ -20,6 +19,7 @@ open interface DocAPI {
         const val API_GET_RELATIVE_MOST_BLOG = "m_getMostClickBlogDetail.do"
         const val API_GET_PAGE_MENU_BY_PAGEURL = "m_getPageMenuByPageUrl.do"
         const val API_TRANSLATE_BY_LABEL_ID = "m_translateByLableId.do"
+        const val API_NEWS_LIST = "m_getNewsByPage.do"
     }
 
     @GET(API_GET_PROJECTGROUPLIST)
@@ -36,4 +36,7 @@ open interface DocAPI {
 
     @GET(API_TRANSLATE_BY_LABEL_ID)
     fun translateByLableId(@QueryMap map: Map<String, String>): Observable<BaseType>
+
+    @GET(API_NEWS_LIST)
+    fun getNewsList(@QueryMap map: Map<String, String>): Observable<NewsListResult>
 }

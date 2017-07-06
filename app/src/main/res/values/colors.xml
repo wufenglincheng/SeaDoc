@@ -7,8 +7,9 @@
     <color name="title_color">#232323</color>
     <color name="list_content_color">#686868</color>
     <color name="list_title_color">#232323</color>
-    <color name="list_item_sp">#e8e8e8</color>
+    <color name="list_item_sp">#E6E6E6</color>
     <color name="alpha10_black">#19000000</color>
     <color name="alpha10_white">#19ffffff</color>
     <color name="card_bg">#ffffffff</color>
+    <color name="placeholder_color">#26909090</color>
 </resources>

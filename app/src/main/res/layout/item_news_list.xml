@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/list_item_sp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
+        android:clickable="true"
+        android:background="@drawable/item_press_selector">
+
+        <ImageView
+            android:id="@+id/item_cover"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="@color/placeholder_color" />
+
+        <TextView
+            android:id="@+id/item_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/item_cover"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textColor="@color/list_title_color"
+            android:textSize="16sp"
+            tools:text="我是标题" />
+
+        <TextView
+            android:id="@+id/item_sub_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/item_title"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textColor="@color/list_content_color"
+            android:textSize="14sp"
+            tools:text="我是二级标题啊啊啊啊" />
+
+        <TextView
+            android:id="@+id/item_author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/item_sub_title"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/list_content_color"
+            android:textSize="12sp"
+            tools:text="作者" />
+
+        <TextView
+            android:id="@+id/item_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/item_sub_title"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/list_content_color"
+            android:textSize="12sp"
+            tools:text="三分钟前" />
+    </RelativeLayout>
+</LinearLayout>
