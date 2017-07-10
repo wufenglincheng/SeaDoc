@@ -8,5 +8,7 @@ import com.coder.seadoc.model.NewsListItem
 class NewsListContract{
     interface View{
         fun updateNewList(t: ArrayList<NewsListItem>)
+        fun updateMoreList(t: ArrayList<NewsListItem>)
+        fun setLoadingError()
     }
 }

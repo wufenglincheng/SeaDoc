@@ -6,6 +6,8 @@ import com.coder.seadoc.module.docgroup.di.DocGroupComponent
 import com.coder.seadoc.module.docgroup.di.DocGroupModule
 import com.coder.seadoc.module.docgroup.di.DocListComponent
 import com.coder.seadoc.module.docgroup.di.DocListModule
+import com.coder.seadoc.module.newsdetail.di.NewsDetailComponent
+import com.coder.seadoc.module.newsdetail.di.NewsDetailModule
 import com.coder.seadoc.module.newslist.di.NewsListComponent
 import com.coder.seadoc.module.newslist.di.NewsListModule
 import dagger.Component
@@ -21,4 +23,5 @@ interface AppComponent {
     fun plus(module: DocListModule): DocListComponent
     fun plus(module: DocDetailModule): DocDetailComponent
     fun plus(module: NewsListModule): NewsListComponent
+    fun plus(module: NewsDetailModule): NewsDetailComponent
 }

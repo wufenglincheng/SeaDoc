@@ -11,5 +11,7 @@
     <color name="alpha10_black">#19000000</color>
     <color name="alpha10_white">#19ffffff</color>
     <color name="card_bg">#ffffffff</color>
-    <color name="placeholder_color">#26909090</color>
+    <color name="placeholder_color">#32009688</color>
+    <color name="transparent">#00000000</color>
+    <color name="dark_icon">#99000000</color>
 </resources>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<transitionSet xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <transitionSet>
+        <targets>
+            <target android:excludeId="@id/cover" />
+        </targets>
+        <transition
+            class="com.coder.seadoc.views.transition.NewsDetailEnter"
+            android:duration="350"
+            android:interpolator="@android:interpolator/linear_out_slow_in" />
+
+        <fade
+            android:startDelay="250"
+            android:duration="100"
+            android:interpolator="@android:interpolator/linear" />
+    </transitionSet>
+
+    <fade
+        android:startDelay="300"
+        android:duration="100"
+        android:interpolator="@android:interpolator/linear">
+        <targets>
+            <target android:targetId="@id/textView" />
+        </targets>
+    </fade>
+</transitionSet>

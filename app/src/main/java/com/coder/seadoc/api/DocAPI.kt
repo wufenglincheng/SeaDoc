@@ -20,6 +20,7 @@ open interface DocAPI {
         const val API_GET_PAGE_MENU_BY_PAGEURL = "m_getPageMenuByPageUrl.do"
         const val API_TRANSLATE_BY_LABEL_ID = "m_translateByLableId.do"
         const val API_NEWS_LIST = "m_getNewsByPage.do"
+        const val API_NEWS_DETAIL = "m_getNewsContentById.do"
     }
 
     @GET(API_GET_PROJECTGROUPLIST)
@@ -39,4 +40,7 @@ open interface DocAPI {
 
     @GET(API_NEWS_LIST)
     fun getNewsList(@QueryMap map: Map<String, String>): Observable<NewsListResult>
+
+    @GET(API_NEWS_DETAIL)
+    fun getNewsDetail(@QueryMap map: Map<String, String>): Observable<NewsDetail>
 }

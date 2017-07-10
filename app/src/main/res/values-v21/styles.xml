@@ -7,11 +7,10 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="colorControlNormal">@android:color/white</item>
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:windowAllowEnterTransitionOverlap">true</item>
+        <item name="android:windowAllowReturnTransitionOverlap">true</item>
     </style>
-
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.Translucent">
         <item name="android:windowBackground">@color/transparent</item>
@@ -20,7 +19,18 @@
         <item name="android:windowIsFloating">false</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowNoTitle">true</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
     </style>
+
     <style name="AppTheme.Translucent.NewsDetailTheme">
+        <item name="android:windowSharedElementEnterTransition">
+            @transition/news_detail_share_enter
+        </item>
+        <item name="android:windowSharedElementReturnTransition">
+            @transition/news_detail_share_back
+        </item>
+        <item name="android:windowEnterTransition">@transition/news_detail_enter</item>
+        <item name="android:windowReturnTransition">@transition/news_detail_back</item>
+        <item name="android:windowAllowReturnTransitionOverlap">false</item>
     </style>
 </resources>

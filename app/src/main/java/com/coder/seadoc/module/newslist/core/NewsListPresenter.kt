@@ -12,7 +12,10 @@ import javax.inject.Inject
 class NewsListPresenter
 @Inject
 constructor(val mView: NewsListContract.View, val mStore: NewsListStore) {
+    var isLoading = false
     fun loadNew() {
+        if (isLoading) return
+        isLoading = true
         mStore.loadNew()
                 .doOnNext {
                     obj ->
@@ -23,13 +26,42 @@ constructor(val mView: NewsListContract.View, val mStore: NewsListStore) {
                 .subscribe(object : Subscriber<ArrayList<NewsListItem>>() {
                     override fun onNext(t: ArrayList<NewsListItem>?) {
                         if (t != null) mView.updateNewList(t!!)
+                        else onError(null)
                     }
 
                     override fun onError(e: Throwable?) {
-
+                        mView.setLoadingError()
                     }
 
                     override fun onCompleted() {
+                        isLoading = false
+                    }
+
+                })
+    }
+
+    fun loadMore() {
+        if (isLoading) return
+        isLoading = true
+        mStore.loadMore()
+                .doOnNext {
+                    obj ->
+                    for (a in obj)
+                        a.praseData()
+                }
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(object : Subscriber<ArrayList<NewsListItem>>() {
+                    override fun onNext(t: ArrayList<NewsListItem>?) {
+                        if (t != null) mView.updateMoreList(t!!)
+                        else onError(null)
+                    }
+
+                    override fun onError(e: Throwable?) {
+                        mView.setLoadingError()
+                    }
+
+                    override fun onCompleted() {
+                        isLoading = false
                     }
 
                 })

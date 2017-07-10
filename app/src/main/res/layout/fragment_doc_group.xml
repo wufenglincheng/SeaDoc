@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="46dp"
         android:background="@color/card_bg"
+        android:elevation="4dp"
         app:tabIndicatorColor="@color/colorPrimary"
         app:tabSelectedTextColor="@color/colorPrimary"
         app:tabTextColor="@color/title_color" />

@@ -38,6 +38,7 @@ ext {
             eventbus                : "org.greenrobot:eventbus:$_eventbusVersion",
             easyRecyclerView        : 'com.jude:easyrecyclerview:4.4.0',
             glide                   : "com.github.bumptech.glide:glide:$_glideVersion",
-            glideCompiler           : "com.github.bumptech.glide:compiler:$_glideVersion"
+            glideCompiler           : "com.github.bumptech.glide:compiler:$_glideVersion",
+            palette                 : "com.android.support:palette-v7:$_supportVersion"
     ]
 }

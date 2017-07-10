@@ -24,6 +24,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".module.docdetail.DocDetailActivity"/>
+        <activity android:name=".module.newsdetail.NewsDetailActivity"
+            android:theme="@style/AppTheme.Translucent.NewsDetailTheme"/>
     </application>
 
 </manifest>
