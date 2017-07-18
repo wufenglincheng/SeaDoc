@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   Copyright 2015 Google Inc.
 
   Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +15,6 @@
   -->
 <transitionSet xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!-- Rapidly fade out all non-shared-element content with a slight downward shift. -->
     <transitionSet>
         <targets>
             <target android:excludeId="@android:id/navigationBarBackground" />
@@ -26,18 +24,25 @@
             android:duration="48"
             android:interpolator="@android:interpolator/fast_out_linear_in" />
         <slide
-            android:slideEdge="bottom"
             android:duration="250"
-            android:interpolator="@android:interpolator/fast_out_linear_in" />
+            android:interpolator="@android:interpolator/fast_out_linear_in"
+            android:slideEdge="bottom" />
     </transitionSet>
 
-    <!-- Except the system chrome, same duration as shared elements. -->
     <fade
         android:duration="250"
         android:interpolator="@android:interpolator/linear">
         <targets>
             <target android:targetId="@android:id/navigationBarBackground" />
             <target android:targetId="@android:id/statusBarBackground" />
+        </targets>
+    </fade>
+
+    <fade
+        android:duration="250"
+        android:interpolator="@android:interpolator/linear">
+        <targets>
+            <target android:targetId="@id/webViewParent" />
         </targets>
     </fade>
 

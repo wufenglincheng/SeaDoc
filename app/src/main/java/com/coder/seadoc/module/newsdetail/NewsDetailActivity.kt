@@ -13,9 +13,7 @@ import android.support.v7.graphics.Palette
 import android.util.TypedValue
 import android.view.View
 import android.view.ViewTreeObserver
-import android.view.animation.AnimationUtils
-import android.webkit.WebChromeClient
-import android.webkit.WebViewClient
+import android.webkit.*
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
@@ -60,7 +58,7 @@ class NewsDetailActivity : NewsDetailContract.View, BaseActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             runEnterTransition()
         } else {
-            webView.alpha = 1f
+            webViewParent.alpha = 1f
         }
         initData()
         initListener()
@@ -77,7 +75,27 @@ class NewsDetailActivity : NewsDetailContract.View, BaseActivity() {
 
     fun initData() {
         webView.apply {
-            setWebViewClient(WebViewClient())
+//            settings.setAppCacheEnabled(true)
+//            settings.domStorageEnabled = true
+//            settings.databaseEnabled = true
+//            settings.cacheMode = WebSettings.LOAD_DEFAULT
+//            settings.javaScriptEnabled = true
+//            settings.loadWithOverviewMode = true
+//            settings.layoutAlgorithm = WebSettings.LayoutAlgorithm.SINGLE_COLUMN
+//            settings.setSupportZoom(true)
+            setWebViewClient(object : WebViewClient() {
+                override fun shouldInterceptRequest(view: WebView?, url: String?): WebResourceResponse? {
+                    var response = super.shouldInterceptRequest(view, url)
+                    if (url.isNullOrBlank()) return response
+                    if (url.equals("https://cdn-static-1.medium.com/_/fp/css/fonts-lazy-latin-base.jMU532QDmysQMOINr-cr2A.css")) {
+                        response = WebResourceResponse("text/css", "UTF-8", assets.open("newsCss_one.css"))
+                    }
+                    if (url.equals("https://cdn-static-1.medium.com/_/fp/css/main-base.tATn6NpWuPoMEq2rVxpt0A.css")) {
+                        response = WebResourceResponse("text/css", "UTF-8", assets.open("newsCss_two.css"))
+                    }
+                    return response
+                }
+            })
             setWebChromeClient(WebChromeClient())
         }
         mPresenter.load(intent.getIntExtra(NEWS_ID, -1))
@@ -95,27 +113,17 @@ class NewsDetailActivity : NewsDetailContract.View, BaseActivity() {
             }
         })
 
-        webView.animate().alpha(1f).setDuration(100).setStartDelay(400).start()
     }
 
     override fun setPageData(content: CharSequence) {
         webView.stopLoading()
         webView.loadDataWithBaseURL(null, content.toString(), "text/html", "utf-8", null)
-        textView.postDelayed({
-            val fadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.fadein)
-            fadeInAnimation.duration = 300
-            textView.text = content
-            textView.startAnimation(fadeInAnimation)
-        }, 300)
     }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onBackPressed() {
-        appBar.setExpanded(true)
-        cover.setForegroundAlpha(0f)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            webView.visibility = View.GONE
-            textView.visibility = View.GONE
+            webViewParent.visibility = View.GONE
             finishAfterTransition()
         } else {
             finish()

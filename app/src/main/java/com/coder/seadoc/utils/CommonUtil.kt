@@ -26,7 +26,7 @@ val IS_LIGHT = 0
 val IS_DARK = 1
 val LIGHTNESS_UNKNOWN = 2
 
-public fun dpToPx(dp: Int, context: Context): Int = (context.resources.displayMetrics.density * dp).toInt()
+fun dpToPx(dp: Int, context: Context): Int = (context.resources.displayMetrics.density * dp).toInt()
 
 fun Activity.requestScreenWidth(): Int {
     return this.resources.displayMetrics.widthPixels

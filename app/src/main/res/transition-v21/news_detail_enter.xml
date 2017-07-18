@@ -22,7 +22,7 @@
         android:duration="100"
         android:interpolator="@android:interpolator/linear">
         <targets>
-            <target android:targetId="@id/textView" />
+            <target android:targetId="@id/webViewParent" />
         </targets>
     </fade>
 </transitionSet>

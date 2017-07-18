@@ -52,24 +52,27 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <com.coder.seadoc.views.NestedScrollWebView
-        android:id="@+id/webView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:alpha="0"
-        android:visibility="gone"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/transparent"
+        android:overScrollMode="never"
+        android:scrollbars="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <TextView
-            android:id="@+id/textView"
+        <FrameLayout
+            android:id="@+id/webViewParent"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent">
+            <WebView
+                android:id="@+id/webView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:isScrollContainer="false"
+                android:overScrollMode="never"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+        </FrameLayout>
+
     </android.support.v4.widget.NestedScrollView>
 
 </android.support.design.widget.CoordinatorLayout>
