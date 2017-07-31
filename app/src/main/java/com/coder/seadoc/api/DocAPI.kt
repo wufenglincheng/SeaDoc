@@ -32,6 +32,9 @@ open interface DocAPI {
     @GET(API_GET_PAGE_CONTENT)
     fun getPageContent(@QueryMap map: Map<String, String>): Observable<GetPageContent>
 
+    @GET(API_GET_RELATIVE_BLOG)
+    fun getBlogList(@QueryMap map: Map<String, String>): Observable<BlogListResult>
+
     @GET(API_GET_RELATIVE_BLOG_CONTENT)
     fun getRelativeBlogContent(@QueryMap map: Map<String, String>): Observable<GetBlogPageDetail>
 

@@ -1,23 +1,29 @@
 package com.coder.seadoc.module.docdetail
 
 import android.os.Bundle
-import android.support.design.widget.TabLayout
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentStatePagerAdapter
+import android.os.Handler
 import android.support.v7.app.ActionBarDrawerToggle
+import android.support.v7.app.AlertDialog
+import android.text.Html
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.webkit.WebChromeClient
 import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.widget.EditText
+import android.widget.TextView
 import com.coder.seadoc.R
 import com.coder.seadoc.base.BaseActivity
-import com.coder.seadoc.model.BlogPage
+import com.coder.seadoc.model.BlogListItem
 import com.coder.seadoc.module.docdetail.core.DocDetailContract
 import com.coder.seadoc.module.docdetail.core.DocDetailPresenter
 import com.coder.seadoc.module.docdetail.di.DocDetailModule
+import com.coder.seadoc.utils.MyObject
+import com.coder.seadoc.utils.dpToPx
+import com.coder.seadoc.views.LoadingDrawable
 import kotlinx.android.synthetic.main.activity_doc_detail.*
 import javax.inject.Inject
 
@@ -36,10 +42,12 @@ class DocDetailActivity : DocDetailContract.ActivityView, BaseActivity() {
     }
 
 
-    val listFragment: ArrayList<Fragment> = ArrayList()
     lateinit var mDrawerToggle: ActionBarDrawerToggle
+    lateinit var languageControl: MyObject
+    lateinit var blogListFragment: BlogListFragment
 
     @Inject lateinit var mPresenter: DocDetailPresenter
+    private lateinit var loadDrawable: LoadingDrawable
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,19 +63,24 @@ class DocDetailActivity : DocDetailContract.ActivityView, BaseActivity() {
         mPresenter.loadMenu(moduleId.toString())
     }
 
+
+
     fun initView() {
         val moduleName = intent.getStringExtra(MODE_NAME)
         setUpToolbar(moduleName, resources.getDrawable(R.drawable.ic_menu))
-        val webSettings = wv_menu.settings
-        webSettings.javaScriptEnabled = true
-        webSettings.cacheMode = WebSettings.LOAD_NO_CACHE
-        wv_menu.setWebViewClient(object : WebViewClient() {
-            override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
-                mPresenter.loadPageData(url)
-                drawer_layout.closeDrawers()
-                return true
-            }
-        })
+        wv_menu.apply {
+            settings.javaScriptEnabled = true
+            settings.cacheMode = WebSettings.LOAD_NO_CACHE
+            setWebViewClient(object : WebViewClient() {
+                override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
+                    blogListFragment.clearData()
+                    loadDrawable.start()
+                    mPresenter.loadPageData(url)
+                    drawer_layout.closeDrawers()
+                    return true
+                }
+            })
+        }
         //创建返回键，并实现打开关/闭监听
         mDrawerToggle = object : ActionBarDrawerToggle(this, drawer_layout, toolbar, 0, 0) {
             override fun onDrawerOpened(drawerView: View?) {
@@ -81,58 +94,82 @@ class DocDetailActivity : DocDetailContract.ActivityView, BaseActivity() {
         mDrawerToggle.syncState()
         drawer_layout.setDrawerListener(mDrawerToggle)
 
+        content_webview.apply {
+            settings.javaScriptEnabled = true
+            settings.cacheMode = WebSettings.LOAD_NO_CACHE
+            setWebViewClient(object : WebViewClient() {
+                override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
+                    if (url.startsWith("translate://")) {
+                        mPresenter.LeftUrlLoading(url)
+                        return true
+                    }
+                    return super.shouldOverrideUrlLoading(view, url)
+                }
+            })
+            setWebChromeClient(object : WebChromeClient() {
+                override fun onProgressChanged(view: WebView?, newProgress: Int) {
+                    if (newProgress == 100) hideProgress()
+                }
+            })
+        }
+        languageControl = MyObject(content_webview, Handler())
+
+        blogListFragment = BlogListFragment()
+        supportFragmentManager.beginTransaction().replace(R.id.blog_parent, blogListFragment).commit()
+        loadDrawable = LoadingDrawable(dpToPx(56, this))
+        bt_to_blog_list.setImageDrawable(loadDrawable)
+        bt_to_blog_list.postDelayed({ loadDrawable?.start() }, 200)
+        bt_to_blog_list.setOnClickListener {
+            if(!loadDrawable.isLoading()){
+                blog_parent.visibility = View.VISIBLE
+                blogListFragment.show(it, blog_parent)
+            }
+        }
     }
 
     override fun setMenuData(content: String?) {
         wv_menu.loadDataWithBaseURL(null, content, "text/html", "utf-8", null)
     }
 
-    override fun setPageData(arrs: ArrayList<BlogPage>) {
+    override fun setPageData(data: String) {
         hideProgress()
-        listFragment.clear()
-        viewpager.apply {
-            offscreenPageLimit = arrs.size
-            adapter = TabPageAdapter(supportFragmentManager).apply {
-                setList(arrs)
-            }
-            adapter.notifyDataSetChanged()
-        }
-        indicator.apply {
-            setupWithViewPager(viewpager)
-            tabMode = TabLayout.MODE_SCROLLABLE
+        content_webview.stopLoading()
+        content_webview.loadDataWithBaseURL(null, data, "text/html", "utf-8", null)
+    }
+
+    override fun onBackPressed() {
+        if (blog_parent.visibility == View.VISIBLE) {
+            blogListFragment.hide()
+        } else {
+            super.onBackPressed()
         }
     }
 
-    internal inner class TabPageAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
-        private var list: List<BlogPage> = java.util.ArrayList<BlogPage>()
-
-        fun setList(list: List<BlogPage>) {
-            this.list = list
-        }
-
-        override fun getItem(position: Int): Fragment {
-            //新建一个Fragment来展示ViewPager item的内容，并传递参数
-            val fragment: Fragment
-            if (position == 0) {
-                fragment = DocLeftFragment()
-            } else {
-                fragment = DocRightFragment.newInstance(position)
-            }
-            listFragment.add(fragment)
-            return fragment
-        }
-
-        override fun getPageTitle(position: Int): CharSequence {
-            if (position == 0) {
-                return "原文"
-            }
-            return list[position].blogTitle + ""
-        }
-
-        override fun getCount(): Int {
-            return list.size
-        }
+    override fun setBlogList(list: ArrayList<BlogListItem>) {
+        loadDrawable?.stop()
+        blogListFragment.updateData(list)
     }
+
+    override fun showTranlateDialog(content1: String?, content2: String?) {
+        val dialogView: View = LayoutInflater.from(this).inflate(R.layout.alert_translate, null)
+        val editText: EditText = dialogView.findViewById(R.id.tv_after_translate) as EditText
+        val textView: TextView = dialogView.findViewById(R.id.tv_pre_translate) as TextView
+        val confirm = dialogView.findViewById(R.id.btn_confirm_translate)
+        val cancel = dialogView.findViewById(R.id.btn_cancel_translate)
+        textView.text = Html.fromHtml(content1)
+        editText.setText(content2)
+        val dialog = AlertDialog.Builder(this)
+                .setView(dialogView).create()
+        confirm.setOnClickListener {
+            mPresenter.translate(editText.text.toString())
+            dialog.dismiss()
+        }
+        cancel.setOnClickListener {
+            dialog.dismiss()
+        }
+        dialog.show()
+    }
+
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_doc_detail, menu)
@@ -154,13 +191,17 @@ class DocDetailActivity : DocDetailContract.ActivityView, BaseActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun changeLanguage(type:Int) {
-        var fragment = listFragment[viewpager.currentItem]
-        if (fragment is DocLeftFragment) {
-            fragment.showLanguage(type)
-        }
-        if (fragment is DocRightFragment) {
-            fragment.showLanguage(type)
+    private fun changeLanguage(type: Int) {
+        when (type) {
+            DocDetailActivity.LANGUNE_ONLY_CN -> {
+                languageControl.chineseOnly()
+            }
+            DocDetailActivity.LANGUNE_ONLY_EN -> {
+                languageControl.englishOnly()
+            }
+            DocDetailActivity.LANGUNE_CN_EN -> {
+                languageControl.showAll()
+            }
         }
     }
 

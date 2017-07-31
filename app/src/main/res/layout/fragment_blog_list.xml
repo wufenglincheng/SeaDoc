@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.coder.seadoc.views.CircleBgView
+        android:id="@+id/path_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <ImageView
+        android:id="@+id/bt_close"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_close" />
+    <View
+        android:id="@+id/title_sp"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_below="@id/bt_close"
+        android:background="@color/list_item_sp"/>
+
+    <com.jude.easyrecyclerview.EasyRecyclerView
+        android:id="@+id/blog_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/title_sp"
+        app:layout_empty="@layout/layout_blog_empty" />
+
+</RelativeLayout>

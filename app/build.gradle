@@ -68,6 +68,7 @@ dependencies {
     kapt dependencies.glideCompiler
     compile files('libs/jsoup-1.10.2.jar')
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
 }
 repositories {
     mavenCentral()

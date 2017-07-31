@@ -68,6 +68,7 @@ constructor(view: DocDetailContract.DetailView, val mStore: DocDetailStore) : Ba
     var tranlsateId: Int? = null
     var tranlsateContent3: String? = null
     var tranlsatebid: String? = null
+
     fun LeftUrlLoading(url: String) {
         tranlsateId = mStore.getBlogPageDetail()?.id
         tranlsatebid = url.substring(url.lastIndexOf("?") + 4, url.length)

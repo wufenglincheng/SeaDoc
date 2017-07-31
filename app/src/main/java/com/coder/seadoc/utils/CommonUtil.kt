@@ -40,6 +40,18 @@ fun Fragment.requestScreenWidth(): Int {
     return this.resources.displayMetrics.widthPixels
 }
 
+fun Activity.requestScreenHeight(): Int {
+    return this.resources.displayMetrics.heightPixels
+}
+
+fun FragmentActivity.requestScreenHeight(): Int {
+    return this.resources.displayMetrics.heightPixels
+}
+
+fun Fragment.requestScreenHeight(): Int {
+    return this.resources.displayMetrics.heightPixels
+}
+
 fun Fragment.showToast(msg: String) {
     Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
 }

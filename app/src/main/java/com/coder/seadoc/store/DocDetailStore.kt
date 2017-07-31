@@ -85,4 +85,14 @@ constructor(private val api: DocAPI) {
             blogPageList!![0]?.blogPageDetail?.pageContent = content
         }
     }
+
+    fun loadBlogList(url: String): Observable<ArrayList<BlogListItem>> {
+        val mapContent = HashMap<String, String>()
+        mapContent.put("pageUrl", url)
+        return api.getBlogList(mapContent)
+                .flatMap {
+                    obj ->
+                    Observable.just(obj.blogPageList)
+                }
+    }
 }

@@ -6,7 +6,8 @@
     <string name="today">今天</string>
     <string name="yesterday">昨天</string>
 
-    
+
     <string name="transition_cover" translatable="false">cover</string>
     <string name="transition_background" translatable="false">background</string>
+    <string name="title_activity_main2">Main2Activity</string>
 </resources>
