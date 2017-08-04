@@ -53,25 +53,27 @@ constructor(view: DocDetailContract.DetailView, val mStore: DocDetailStore) : Ba
                         }
                         .map {
                             obj ->
-                            obj[0].attr("href")
+                            for (item in obj) {
+
+                            }
+                            var url: String = ""
+                            obj.forEachIndexed { index, element ->
+                                if (!obj[index].attr("href").isNullOrBlank()) {
+                                    url = obj[index].attr("href")
+                                    return@forEachIndexed
+                                }
+                            }
+                            url
                         }
                         .filter {
                             obj ->
                             obj != null && obj.startsWith("http")
                         }
-                        .flatMap {
-                            obj ->
-                            mStore.getPageData(obj)
-                        }
-                        .map {
-                            mStore.getBlogPageDetail()?.pageContent
-                        }
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(object : Subscriber<String?>() {
                             override fun onNext(t: String?) {
                                 if (t != null) {
-                                    Log.e("DocDetailPresenter", t.toString())
-                                    mView?.setPageData(t)
+                                    loadPageData(t)
                                 }
                             }
 
@@ -121,7 +123,7 @@ constructor(view: DocDetailContract.DetailView, val mStore: DocDetailStore) : Ba
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(object : Subscriber<ArrayList<BlogListItem>>() {
                     override fun onNext(t: ArrayList<BlogListItem>?) {
-                        if(t!=null){
+                        if (t != null) {
                             mView?.setBlogList(t)
                         }
                     }

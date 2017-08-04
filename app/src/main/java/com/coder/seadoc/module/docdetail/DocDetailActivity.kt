@@ -9,10 +9,7 @@ import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.webkit.WebChromeClient
-import android.webkit.WebSettings
-import android.webkit.WebView
-import android.webkit.WebViewClient
+import android.webkit.*
 import android.widget.EditText
 import android.widget.TextView
 import com.coder.seadoc.R
@@ -23,6 +20,7 @@ import com.coder.seadoc.module.docdetail.core.DocDetailPresenter
 import com.coder.seadoc.module.docdetail.di.DocDetailModule
 import com.coder.seadoc.utils.MyObject
 import com.coder.seadoc.utils.dpToPx
+import com.coder.seadoc.utils.localUri
 import com.coder.seadoc.views.LoadingDrawable
 import kotlinx.android.synthetic.main.activity_doc_detail.*
 import javax.inject.Inject
@@ -78,6 +76,10 @@ class DocDetailActivity : DocDetailContract.ActivityView, BaseActivity() {
                     mPresenter.loadPageData(url)
                     drawer_layout.closeDrawers()
                     return true
+                }
+                override fun shouldInterceptRequest(view: WebView?, url: String?): WebResourceResponse? {
+                    var response = super.shouldInterceptRequest(view, url)
+                    return localUri(response, url, assets)
                 }
             })
         }

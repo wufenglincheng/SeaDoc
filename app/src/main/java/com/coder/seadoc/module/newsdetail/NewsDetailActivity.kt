@@ -13,7 +13,10 @@ import android.support.v7.graphics.Palette
 import android.util.TypedValue
 import android.view.View
 import android.view.ViewTreeObserver
-import android.webkit.*
+import android.webkit.WebChromeClient
+import android.webkit.WebResourceResponse
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
@@ -75,25 +78,10 @@ class NewsDetailActivity : NewsDetailContract.View, BaseActivity() {
 
     fun initData() {
         webView.apply {
-//            settings.setAppCacheEnabled(true)
-//            settings.domStorageEnabled = true
-//            settings.databaseEnabled = true
-//            settings.cacheMode = WebSettings.LOAD_DEFAULT
-//            settings.javaScriptEnabled = true
-//            settings.loadWithOverviewMode = true
-//            settings.layoutAlgorithm = WebSettings.LayoutAlgorithm.SINGLE_COLUMN
-//            settings.setSupportZoom(true)
             setWebViewClient(object : WebViewClient() {
                 override fun shouldInterceptRequest(view: WebView?, url: String?): WebResourceResponse? {
                     var response = super.shouldInterceptRequest(view, url)
-                    if (url.isNullOrBlank()) return response
-                    if (url.equals("https://cdn-static-1.medium.com/_/fp/css/fonts-lazy-latin-base.jMU532QDmysQMOINr-cr2A.css")) {
-                        response = WebResourceResponse("text/css", "UTF-8", assets.open("newsCss_one.css"))
-                    }
-                    if (url.equals("https://cdn-static-1.medium.com/_/fp/css/main-base.tATn6NpWuPoMEq2rVxpt0A.css")) {
-                        response = WebResourceResponse("text/css", "UTF-8", assets.open("newsCss_two.css"))
-                    }
-                    return response
+                    return localUri(response, url, assets)
                 }
             })
             setWebChromeClient(WebChromeClient())

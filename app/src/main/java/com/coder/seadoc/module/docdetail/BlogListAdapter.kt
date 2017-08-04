@@ -1,6 +1,7 @@
 package com.coder.seadoc.module.docdetail
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,5 +32,10 @@ class BlogListAdapter constructor(context: Context) : RecyclerArrayAdapter<BlogL
         holder.get<TextView>(R.id.author).text = "—— " + data.blogAuthor
         holder.get<TextView>(R.id.time).text = data.blogTime
         holder.get<TextView>(R.id.source).text = "来源：" + data.blogTag
+        itemView.setOnClickListener {
+            val intent = Intent(context, BlogDetailActivity::class.java)
+            intent.putExtra(BlogDetailActivity.BLOG_ID,data.id)
+            context.startActivity(intent)
+        }
     }
 }

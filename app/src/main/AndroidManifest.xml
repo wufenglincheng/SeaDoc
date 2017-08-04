@@ -28,10 +28,6 @@
             android:name=".module.newsdetail.NewsDetailActivity"
             android:theme="@style/AppTheme.Translucent.NewsDetailTheme" />
         <activity android:name=".module.docdetail.BlogDetailActivity" />
-        <activity
-            android:name=".module.docdetail.Main2Activity"
-            android:label="@string/title_activity_main2"
-            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

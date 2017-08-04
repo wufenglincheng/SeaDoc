@@ -4,4 +4,5 @@
     <item
         android:id="@android:id/mask"
         android:drawable="@android:color/black" />
+    <item android:drawable="@color/card_bg"/>
 </ripple>

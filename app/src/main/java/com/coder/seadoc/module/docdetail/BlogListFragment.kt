@@ -29,6 +29,7 @@ class BlogListFragment : BaseFragment() {
         }
         blog_list.alpha = 0f
         bt_close.alpha = 0f
+        title_sp.alpha = 0f
         bt_close.setOnClickListener {
             hide()
         }
@@ -47,12 +48,14 @@ class BlogListFragment : BaseFragment() {
         bt_close.postDelayed({
             bt_close.animate().alpha(1f).setDuration(100).start()
             blog_list.animate().alpha(1f).setDuration(100).start()
+            title_sp.animate().alpha(1f).setDuration(100).start()
         }, 300)
     }
 
     fun hide() {
         bt_close.animate().alpha(0f).setDuration(100).start()
         blog_list.animate().alpha(0f).setDuration(100).start()
+        title_sp.animate().alpha(0f).setDuration(100).start()
         path_view.setExpanded(false)
         bt_close.postDelayed({ parentView?.visibility = View.GONE }, 300)
     }

@@ -95,4 +95,5 @@ constructor(private val api: DocAPI) {
                     Observable.just(obj.blogPageList)
                 }
     }
+
 }

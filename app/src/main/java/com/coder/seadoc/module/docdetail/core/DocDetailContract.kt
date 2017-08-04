@@ -17,7 +17,6 @@ open class DocDetailContract {
 
     interface FragmentView : DetailView {
         fun setPageData(data: String?)
-        fun showTranlateDialog(content1: String?, content2: String?)
     }
 
     interface DetailView

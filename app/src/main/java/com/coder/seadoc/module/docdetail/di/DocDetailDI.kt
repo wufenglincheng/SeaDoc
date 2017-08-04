@@ -1,8 +1,7 @@
 package com.coder.seadoc.module.docdetail.di
 
+import com.coder.seadoc.module.docdetail.BlogDetailActivity
 import com.coder.seadoc.module.docdetail.DocDetailActivity
-import com.coder.seadoc.module.docdetail.DocLeftFragment
-import com.coder.seadoc.module.docdetail.DocRightFragment
 import com.coder.seadoc.module.docdetail.core.DocDetailContract
 import dagger.Module
 import dagger.Provides
@@ -16,8 +15,7 @@ import javax.inject.Scope
 @Subcomponent(modules = arrayOf(DocDetailModule::class))
 interface DocDetailComponent {
     fun inject(activity: DocDetailActivity)
-    fun inject(fragment: DocLeftFragment)
-    fun inject(fragment: DocRightFragment)
+    fun inject(fragment: BlogDetailActivity)
 }
 
 @Module

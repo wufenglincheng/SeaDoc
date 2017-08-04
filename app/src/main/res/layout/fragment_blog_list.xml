@@ -27,6 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/title_sp"
+        android:background="@color/list_item_sp"
         app:layout_empty="@layout/layout_blog_empty" />
 
 </RelativeLayout>
